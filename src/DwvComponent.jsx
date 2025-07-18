@@ -317,7 +317,7 @@ class DwvComponent extends React.Component {
     
     if (url.searchParams.has("studyId")) {
       const paramStudyId = url.searchParams.get("studyId");
-      const orthancArchiveUrl = `${import.meta.env.VITE_ORTHANC_URL}/studies/${paramStudyId}/archive`;
+      const orthancArchiveUrl = `${import.meta.env.VITE_API_URL}/api/studies/${paramStudyId}/archive`;
       axios
         .get(orthancArchiveUrl, {
           responseType: 'blob',
