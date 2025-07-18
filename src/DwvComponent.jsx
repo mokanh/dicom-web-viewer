@@ -77,9 +77,9 @@ class DwvComponent extends React.Component {
       metaData: {},
       orientation: undefined,
       showDicomTags: false,
-      dropboxDivId: "dropBox",
-      dropboxClassName: "dropBox",
-      borderClassName: "dropBoxBorder",
+      dropboxDivId: "",
+      dropboxClassName: "",
+      borderClassName: "",
       hoverClassName: "hover",
     };
   }
@@ -463,21 +463,21 @@ class DwvComponent extends React.Component {
    * Handle a drop event.
    * @param {DragEvent} event The event to handle.
    */
-  onDrop = (event) => {
-    this.defaultHandleDragEvent(event);
-    // load files
-    this.state.dwvApp.loadFiles(event.dataTransfer.files);
-  };
+  // onDrop = (event) => {
+  //   this.defaultHandleDragEvent(event);
+  //   // load files
+  //   this.state.dwvApp.loadFiles(event.dataTransfer.files);
+  // };
 
   /**
    * Handle a an input[type:file] change event.
    * @param event The event to handle.
    */
-  onInputFile = (event) => {
-    if (event.target && event.target.files) {
-      this.state.dwvApp.loadFiles(event.target.files);
-    }
-  };
+  // onInputFile = (event) => {
+  //   if (event.target && event.target.files) {
+  //     this.state.dwvApp.loadFiles(event.target.files);
+  //   }
+  // };
 
   /**
    * Show/hide the data load drop box.
@@ -497,7 +497,7 @@ class DwvComponent extends React.Component {
       // check content
       if (box.innerHTML === "") {
         const p = document.createElement("p");
-        p.appendChild(document.createTextNode("Drag and drop data here or "));
+        p.appendChild(document.createTextNode(""));
         // input file
         const input = document.createElement("input");
         input.onchange = this.onInputFile;
@@ -508,7 +508,7 @@ class DwvComponent extends React.Component {
         const label = document.createElement("label");
         label.htmlFor = "input-file";
         const link = document.createElement("a");
-        link.appendChild(document.createTextNode("click here"));
+        link.appendChild(document.createTextNode(""));
         link.id = "input-file-link";
         label.appendChild(link);
         p.appendChild(input);
