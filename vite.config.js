@@ -21,9 +21,9 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      '/studies': import.meta.env.VITE_ORTHANC_URL,
-      '/instances': import.meta.env.VITE_ORTHANC_URL,
-      '/series': import.meta.env.VITE_ORTHANC_URL
+      '/studies': process.env.VITE_ORTHANC_URL,
+      '/instances': process.env.VITE_ORTHANC_URL,
+      '/series': process.env.VITE_ORTHANC_URL
     }
   }
 })
