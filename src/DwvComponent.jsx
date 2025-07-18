@@ -4,7 +4,6 @@ import {
   Typography,
   Stack,
   LinearProgress,
-  Link,
   IconButton,
   ToggleButton,
   ToggleButtonGroup,
@@ -28,7 +27,6 @@ import ContrastIcon from "@mui/icons-material/Contrast";
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import StraightenIcon from "@mui/icons-material/Straighten";
-import CameraswitchIcon from "@mui/icons-material/Cameraswitch";
 
 import "./DwvComponent.css";
 
@@ -69,9 +67,6 @@ class DwvComponent extends React.Component {
         Scroll: {},
         ZoomAndPan: {},
         WindowLevel: {},
-        Draw: {
-          options: ["Ruler"],
-        },
       },
       canScroll: false,
       canWindowLevel: false,
@@ -142,16 +137,6 @@ class DwvComponent extends React.Component {
 
           <ToggleButton
             size="small"
-            value="toggleOrientation"
-            title="Toggle Orientation"
-            disabled={!dataLoaded}
-            onClick={this.toggleOrientation}
-          >
-            <CameraswitchIcon />
-          </ToggleButton>
-
-          <ToggleButton
-            size="small"
             value="tags"
             title="Tags"
             disabled={!dataLoaded}
@@ -160,7 +145,7 @@ class DwvComponent extends React.Component {
             <LibraryBooksIcon />
           </ToggleButton>
 
-          <Dialog
+          {/* <Dialog
             open={this.state.showDicomTags}
             onClose={this.handleTagsDialogClose}
             slots={{ transition: TransitionUp }}
@@ -184,35 +169,11 @@ class DwvComponent extends React.Component {
               </Toolbar>
             </AppBar>
             <TagsTable data={metaData} />
-          </Dialog>
+          </Dialog> */}
         </Stack>
 
         <div id="layerGroup0" className="layerGroup">
           <div id="dropBox"></div>
-        </div>
-
-        <div>
-          <p className="legend">
-            <Typography variant="caption">
-              Powered by{" "}
-              <Link
-                href="https://github.com/ivmartel/dwv"
-                title="dwv on github"
-                color="inherit"
-              >
-                dwv
-              </Link>{" "}
-              {versions.dwv} and{" "}
-              <Link
-                href="https://github.com/facebook/react"
-                title="react on github"
-                color="inherit"
-              >
-                React
-              </Link>{" "}
-              {versions.react}
-            </Typography>
-          </p>
         </div>
       </Root>
     );
@@ -324,16 +285,18 @@ class DwvComponent extends React.Component {
         })
         .then((response) => {
           const blob = response.data;
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-          a.click();
           const reader = new FileReader();
 
           reader.onload = () => {
             const zipData = reader.result;
-            app.loadFiles(zipData);
+            const fileName = `study_${paramStudyId}.zip`;
+
+            if (zipData) {
+              const file = new File([zipData], fileName, { type: 'application/zip' });
+              app.loadFiles([file]);
+            } else {
+              console.error("Failed to read zip data.");
+            }
           };
           reader.readAsArrayBuffer(blob);
         })
