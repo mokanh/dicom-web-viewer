@@ -315,10 +315,11 @@ class DwvComponent extends React.Component {
     // load from url if provided
     const url = new URL(window.location.href);
     
-    if (url.searchParams.has("file")) {
-      const fileUrl = url.searchParams.get("file");
+    if (url.searchParams.has("studyId")) {
+      const paramStudyId = url.searchParams.get("studyId");
+      const orthancArchiveUrl = `${import.meta.env.VITE_ORTHANC_URL}/studies/${paramStudyId}/archive`;
       axios
-        .get(fileUrl, {
+        .get(orthancArchiveUrl, {
           responseType: 'blob',
         })
         .then((response) => {
