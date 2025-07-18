@@ -32,7 +32,7 @@
     "build": "vite build",
     "build-trunk": "vite build --mode development --base /dwv-react/demo/trunk",
     "build-stable": "vite build --mode production --base /dwv-react/demo/stable",
-    "preview": "vite preview",
+    "preview": "vite preview --port=4173 --host=0.0.0.0",
     "test": "vitest",
     "test-ci": "vitest run"
   },
